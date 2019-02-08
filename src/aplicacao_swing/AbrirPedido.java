@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import fachada.Fachada;
+import modelo.Pedido;
 
 import javax.swing.JButton;
 import java.awt.Font;
@@ -55,13 +56,13 @@ public class AbrirPedido extends JPanel {
 		btnAbrir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Fachada.abrirPedido(textFieldTel.getText());
+					Pedido p = Fachada.abrirPedido(textFieldTel.getText());
 					textFieldTel.setText("");
-					labelConfirma.setText("Pedido aberto com sucesso!");
+					labelConfirma.setText("Pedido com ID " + p.getId() + " aberto com sucesso!");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					labelConfirma.setText(e.getMessage());
-					System.out.println(e.getMessage());
+					//System.out.println(e.getMessage());
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					
 				}

@@ -65,15 +65,13 @@ public class EnviarPedido extends JPanel {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Fachada.consultarPedido(textFieldTel.getText());
 					Fachada.enviarPedido(textFieldTel.getText(), textFieldEmail.getText());
 					textFieldTel.setText("");
 					textFieldEmail.setText("");
 					labelConfirma.setText("Email enviado com sucesso!");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					labelConfirma.setText(e.getMessage());
-					System.out.println(e.getMessage());
+					//System.out.println(e.getMessage());
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					
 				}

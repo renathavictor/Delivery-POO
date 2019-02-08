@@ -2,8 +2,8 @@
 import java.time.LocalDateTime;
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
- * Programação Orientada a Objetos
- * Prof. Fausto Maranhão Ayres
+ * Programaï¿½ï¿½o Orientada a Objetos
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 import java.util.ArrayList;
 
@@ -88,7 +88,7 @@ public class Cliente {
 			return null;
 		int ultimo = pedidos.size()-1;
 		Pedido p = pedidos.get(ultimo);
-		if (p.getStatus() == false)
+		if (p.isFechado() == false)
 			return p;
 		return null; // adicionar throw new Exception
 	}

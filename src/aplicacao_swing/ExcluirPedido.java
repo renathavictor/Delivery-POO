@@ -54,7 +54,6 @@ public class ExcluirPedido extends JPanel {
 		
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("qyuia si");
 				try {
 					int id = Integer.parseInt(textFieldID.getText());
 					Fachada.excluirPedido(id);

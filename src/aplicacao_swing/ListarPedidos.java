@@ -29,23 +29,23 @@ public class ListarPedidos extends JPanel {
 		JTextArea textArea = new JTextArea();
 		textArea.setBounds(22, 77, 598, 362);
 		//add(textArea);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 86, 628, 3532);
+		scrollPane.setViewportView(textArea);
+		add(scrollPane);
 	
 		try{
 			String texto;
 			ArrayList<Pedido> lista = Fachada.listarPedidos();
 			texto = "\n";
 			if (lista.isEmpty())
-				texto += "Não tem produto cadastrado\n";
+				texto += "Nao tem produto cadastrado\n";
 			else 	
 				for(Pedido p: lista) 
-					texto +=  p +" -- Pedido fechado? " + p.getStatus() + " \n\n"; 
+					texto +=  p +" -- Pedido fechado? " + p.isFechado() + " \n\n"; 
 
 			textArea.setText(texto);
 			
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(10, 86, 628, 3532);
-			scrollPane.setViewportView(textArea);
-			add(scrollPane);
 			
 		}
 		catch(Exception erro){

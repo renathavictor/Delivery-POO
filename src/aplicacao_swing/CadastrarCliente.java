@@ -33,7 +33,7 @@ public class CadastrarCliente extends JPanel {
 		
 		JLabel lblCadastrarCliente = new JLabel("Cadastrar Cliente");
 		lblCadastrarCliente.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblCadastrarCliente.setBounds(228, 11, 184, 78);
+		lblCadastrarCliente.setBounds(228, 11, 306, 78);
 		add(lblCadastrarCliente);
 		
 		JLabel lblNome = new JLabel("Nome:");
@@ -85,7 +85,6 @@ public class CadastrarCliente extends JPanel {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					System.out.println("CADASTRO SWING");
 					Fachada.cadastrarCliente(textFieldTel.getText(), textFieldNome.getText(), textFieldEmail.getText(), textFieldEnde.getText());
 					textFieldNome.setText("");
 					textFieldTel.setText("");
@@ -95,7 +94,7 @@ public class CadastrarCliente extends JPanel {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					labelConfirma.setText(e.getMessage());
-					System.out.println(e.getMessage());
+					//System.out.println(e.getMessage());
 					
 				}
 			}

@@ -12,7 +12,6 @@ import modelo.Produto;
 
 import javax.swing.JButton;
 import java.awt.Font;
-import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class ConsultarPedido extends JPanel {
 		
 		JLabel lblAbrirPedido = new JLabel("Consultar Pedido");
 		lblAbrirPedido.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblAbrirPedido.setBounds(241, 11, 184, 78);
+		lblAbrirPedido.setBounds(171, 11, 254, 78);
 		add(lblAbrirPedido);
 		
 		JLabel lblTel = new JLabel("Telefone do Cliente:");
@@ -49,10 +48,10 @@ public class ConsultarPedido extends JPanel {
 		add(textFieldTel);
 		textFieldTel.setColumns(10);
 		
-		JButton btnConsultar = new JButton("Consultar");
+		JButton btnConsultar = new JButton("Todos");
 		
 		btnConsultar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnConsultar.setBounds(89, 278, 108, 36);
+		btnConsultar.setBounds(24, 273, 108, 36);
 		add(btnConsultar);
 		
 		labelConfirma = new JLabel("");
@@ -68,6 +67,26 @@ public class ConsultarPedido extends JPanel {
 		scrollPane.setViewportView(textArea);
 		add(scrollPane);
 		
+		JButton btnPedidoAberto = new JButton("Pedido Aberto");
+		btnPedidoAberto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				String consultaPedido = "";			
+				try {
+					Pedido p = Fachada.consultarPedido(textFieldTel.getText());
+					consultaPedido += "Nome do Cliente: " + p.verClientePedido().getNome() + "\n "+ p; 
+					textArea.setText(consultaPedido);	
+					
+				} catch (Exception e1) {
+					labelConfirma.setText(e1.getMessage());
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+					
+				}
+			}
+		});
+		btnPedidoAberto.setBounds(144, 272, 135, 36);
+		add(btnPedidoAberto);
+		
 		// ARRUMAR ESSE AQUI!!!
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -76,18 +95,12 @@ public class ConsultarPedido extends JPanel {
 				try {
 					ArrayList<Pedido> todos = Fachada.listarPedidos(textFieldTel.getText());
 					for (Pedido p : todos) {
-						consultaPedido += "Nome do Cliente: " + p.verClientePedido().getNome()
-						+ " \n\n " + "ID Pedido: " + p.getId() + "\nData pedido: " + p.getData().format(formatador) + " \n\n Produtos: \n"; 
-						for (Produto prod : p.produtosPedido()) {
-							consultaPedido += "Descrição: " + prod.getDescricao() + " - Preço: " + prod.getPreco() + "\n";
-						}
+						consultaPedido += "Nome do Cliente: " + p.verClientePedido().getNome() + " \n " + p;
 							
 					}
 					textArea.setText(consultaPedido);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					labelConfirma.setText(e.getMessage());
-					System.out.println(e.getMessage());
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					
 				}

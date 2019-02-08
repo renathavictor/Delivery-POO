@@ -72,7 +72,7 @@ public class AdicionarProduto extends JPanel {
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					labelConfirma.setText(e.getMessage());
-					System.out.println(e.getMessage());
+					//System.out.println(e.getMessage());
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					
 				}

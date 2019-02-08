@@ -60,7 +60,7 @@ public class Arrecadacao extends JPanel {
 		add(textFieldResult);
 		textFieldResult.setColumns(10);
 		
-		JLabel lblArrecadao = new JLabel("Arrecada\u00E7\u00E3o");
+		JLabel lblArrecadao = new JLabel("Arrecadacao");
 		lblArrecadao.setBounds(81, 217, 95, 14);
 		add(lblArrecadao);
 		
@@ -68,13 +68,13 @@ public class Arrecadacao extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					int d = Integer.parseInt(textFieldDia.getText());
-					textFieldResult.setText(Fachada.calcularArrecadacao(d) + "");
+					textFieldResult.setText("R$ " + Fachada.calcularArrecadacao(d) + "");
 					textFieldDia.setText("");
 					labelConfirma.setText("");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					labelConfirma.setText(e.getMessage());
-					System.out.println(e.getMessage());
+					//System.out.println(e.getMessage());
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					
 				}

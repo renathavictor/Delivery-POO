@@ -3,8 +3,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
- * Programação Orientada a Objetos
- * Prof. Fausto Maranhão Ayres
+ * Programaï¿½ï¿½o Orientada a Objetos
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 import java.util.ArrayList;
 
@@ -12,16 +12,16 @@ import java.util.ArrayList;
 public class Pedido {
 	private int id;
 	private LocalDateTime data = LocalDateTime.now();
-	private double total;
 	private String entregador;
-	private boolean fechado = true; // está fechado
+	private boolean fechado; // esta fechado
 	private ArrayList<Produto> produtos = new ArrayList<Produto>();
 	private Cliente cliente;
+	private double taxaEntrega = 10.0;
 	
 	public Pedido(int id) {
 		super();
 		this.id = id;
-		setStatus(false);
+		setFechado(false);
 	}
 	
 	public void adicionarProduto(Produto p){
@@ -44,7 +44,6 @@ public class Pedido {
 		return produtos;
 	}
 	
-
 	public int getTotalProdutos(){
 		return produtos.size();
 	}
@@ -56,14 +55,21 @@ public class Pedido {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
-	public void setStatus(boolean s) {
+		
+	public void setFechado(boolean s) {
 		fechado = s;
 	}
 	
-	public boolean getStatus() {
+	public boolean isFechado() {
 		return fechado;
+	}
+	
+	public String getEntregador() {
+		return entregador;
+	}
+
+	public void setEntregador(String entregador) {
+		this.entregador = entregador;
 	}
 	
 	public void adicionarClientePedido(Cliente cli) {
@@ -79,6 +85,7 @@ public class Pedido {
 	}
 	
 	public double totalPedido() {
+		double total = 0.0;
 		for(Produto p : produtos) {
 			total += p.getPreco();
 		}
@@ -89,14 +96,16 @@ public class Pedido {
 	public String toString() {
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		String texto = "Pedido ID=" + id + "\n -- data: " + this.getData().format(formatador) + "\n -- " + produtos.size() + " produtos.";
-		texto += "\n -- produtos:";
+		texto += "\n -- produtos: |";
 		if (produtos.isEmpty())
 			texto += " vazia";
-		else 	
-			for(Produto p: produtos) 
-				texto += " " + p.getDescricao();
-
-		return texto + ".\n";
+		else {
+			for(Produto p: produtos) {
+				texto += " " + p.getDescricao() + " -  R$ "+ p.getPreco() + " | ";				
+			};
+			texto += "\n -- valor pedido: " + totalPedido() + " + taxa de entrega: " + taxaEntrega + "\n TOTAL: R$ " + (totalPedido() + taxaEntrega);			
+		}
+		return texto + "\n";
 	}
 
 }

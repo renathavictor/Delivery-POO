@@ -3,8 +3,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
- * Programação Orientada a Objetos
- * Prof. Fausto Maranhão Ayres
+ * Programaï¿½ï¿½o Orientada a Objetos
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,7 +42,6 @@ import modelo.Produto;
 public class Restaurante {
 	private ArrayList<Produto> produtos = new ArrayList<Produto>();
 	private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
-	private ArrayList<Combo> combos = new ArrayList<Combo>();
 	private TreeMap<String, Cliente> clientes = new TreeMap<>();
 
 	public void adicionarProduto(Produto p){
@@ -81,6 +80,14 @@ public class Restaurante {
 				clientes.get(telefone).removerPedidosCliente();
 			}
 		}
+		ArrayList<Produto> produtos = p.produtosPedido();
+		for (Produto prod : produtos) {
+			prod.removerPedido(p);
+		}
+	}
+	
+	public void removerProdutoPedido(Pedido p) {
+		
 	}
 
 	public Pedido localizarPedido(int id){
@@ -150,35 +157,28 @@ public class Restaurante {
 		}
 	}
 	
-	public Combo criarCombo(int[] ids, String nome) {
-		ArrayList<Produto> auxProd = new ArrayList<>();
-		for (int id : ids) {
-			Produto p = localizarProduto(id);
-			auxProd.add(p);
-		}
-		Combo combo = new Combo(auxProd, nome);
-		combos.add(combo);
-		return combo;
-	}
 	
 	public void criarPdf(Pedido p) {
 		Document document = new Document();
 		System.out.println("envio email");
-
+		double totalPedido = p.totalPedido();
+		double taxa = 10.0;
 		try {			
-			PdfWriter.getInstance(document, new FileOutputStream("pdf/notaPedido" + p.getId() + ".pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream("pdf//nota.pdf"));
 			
 			document.setPageSize(PageSize.A4);
-			document.addSubject("Nota do Pedido");
+			document.addSubject("Nota do Pedido " + p.getId());
 			
-			document.addAuthor("Delivery Project");
+			document.addAuthor("Beyond Food Delivery");
 			document.open();
 		
-			Image imagem = Image.getInstance("src/imagens/BEYOND-FOOD2.png");
+			Image imagem = Image.getInstance("src//imagens//BEYOND-FOOD2.png");
 			imagem.scaleToFit(250, 150);
 			document.add(imagem);
 
 			document.add(new Paragraph("Dados do Pedido\n"));
+			
+			document.add(new Paragraph("\n" + p.verClientePedido() + "\n"));
 			
 			document.add(new Paragraph("Pedido ID: " + p.getId() + "\n"));
 			
@@ -186,11 +186,14 @@ public class Restaurante {
 			ArrayList<Produto> ped = p.produtosPedido();
 			
 			for (Produto prod : ped) {
-				document.add(new Paragraph("ID: " + prod.getId() + " --- Descrição: " + prod.getDescricao() + " --- Preço: " + prod.getPreco()));
+				document.add(new Paragraph("ID: " + prod.getId() + " --- Descricao: " + prod.getDescricao() + " --- Preco: " + prod.getPreco()));
+
 			}
-			
+			document.add(new Paragraph("\n -- Valor pedido: R$" + totalPedido + " -- taxa de entrega R$ " + taxa));
+			document.add(new Paragraph("TOTAL: R$" + (totalPedido + taxa) ));
 			document.close();
 
+			document.close();
 			System.out.println("PDF criado com sucesso!");
 			
 			
@@ -198,7 +201,6 @@ public class Restaurante {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
-		document.close();
 	}
 	
 	public void enviarEmail(String e, String s) {
@@ -234,13 +236,13 @@ public class Restaurante {
 			//configurando a data de envio,  o assunto e o texto da mensagem
 			msg.setSentDate(new Date());
 			msg.setSubject("Enviando Email com mensagem e anexo");		
-			msg.setSubject("Testando email: " );
+			msg.setSubject("Nota do Pedido - Beyond Food" );
 			msg.setText("exemplo de email");
 			msg.setHeader("XPriority", "1");
 			
 			
 			// conteudo html que sera atribuido a mensagem
-			String htmlMessage = "<html> Email com anexo </html>";
+			String htmlMessage = "<html><h1>Beyond Food Delivery</h1> <p>Email com anexo</p></br><p>Pedido realizado no Beyond Food Delivery</p> </html>";
 			//criando a Multipart
 			Multipart multipart = new MimeMultipart();
 			//criando a primeira parte da mensagem
@@ -249,14 +251,14 @@ public class Restaurante {
 			attachment0.setContent(htmlMessage,"text/html; charset=UTF-8");
 			//adicionando na multipart
 			multipart.addBodyPart(attachment0);
-			//arquivo que será anexado
+			//arquivo que serï¿½ anexado
 			String pathname = "pdf/nota.pdf";//pode conter o caminho
 			File file = new File(pathname);
 			//criando a segunda parte da mensagem
 			MimeBodyPart attachment1 = new MimeBodyPart();  
 			//configurando o DataHandler para o arquivo desejado
 			//a leitura dos bytes, descoberta e configuracao do tipo
-			//do arquivo serão resolvidos pelo JAF (DataHandler e FileDataSource)
+			//do arquivo serï¿½o resolvidos pelo JAF (DataHandler e FileDataSource)
 			attachment1.setDataHandler(new DataHandler(new FileDataSource(file)));
 			
 			//configurando o nome do arquivo que pode ser diferente do arquivo

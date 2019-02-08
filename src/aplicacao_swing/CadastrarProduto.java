@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import fachada.Fachada;
+import modelo.Produto;
 
 import javax.swing.JButton;
 import java.awt.Font;
@@ -31,14 +32,14 @@ public class CadastrarProduto extends JPanel {
 		
 		JLabel lblCadastrarProduto = new JLabel("Cadastrar Produto");
 		lblCadastrarProduto.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblCadastrarProduto.setBounds(228, 11, 184, 78);
+		lblCadastrarProduto.setBounds(211, 12, 291, 78);
 		add(lblCadastrarProduto);
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(80, 143, 46, 14);
 		add(lblNome);
 		
-		JLabel lblPreo = new JLabel("Pre\u00E7o:");
+		JLabel lblPreo = new JLabel("Preco:");
 		lblPreo.setBounds(80, 199, 46, 14);
 		add(lblPreo);
 		
@@ -66,14 +67,14 @@ public class CadastrarProduto extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				double preco = Double.parseDouble(textFieldPreco.getText());
 				try {
-					Fachada.cadastrarProduto(textFieldNome.getText(), preco);
+					Produto p = Fachada.cadastrarProduto(textFieldNome.getText(), preco);
 					textFieldNome.setText("");
 					textFieldPreco.setText("");
-					labelConfirma.setText("Produto cadastrado com sucesso!");
+					labelConfirma.setText("Produto de id " + p.getId()+ " cadastrado com sucesso!");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					labelConfirma.setText(e.getMessage());
-					System.out.println(e.getMessage());
+					//System.out.println(e.getMessage());
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					
 				}

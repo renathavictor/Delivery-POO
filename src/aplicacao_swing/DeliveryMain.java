@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -66,28 +68,20 @@ public class DeliveryMain {
 	 */
 	private void initialize() {
 		frame = new JFrame("Beyond Food Administrator");
-		
+		frame.setResizable(false);
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				try{
 					//  pre-cadastro
 					
+					// clientes
 					Cliente joao = Fachada.cadastrarCliente("98745-0643", "joao", "poo.projeto.delivery@gmail.com","Rua dos Tronos, 3");
 		            System.out.println("cadastrou cliente = "+joao.getNome());
-		            Cliente maria = Fachada.cadastrarCliente("98820-0222", "maria", "poo.projeto.delivery@gmail.com","Rua da Justiça, 12");          
-		            System.out.println("cadastrou cliente = "+maria.getNome());
-					Cliente renatha = Fachada.cadastrarCliente("98821-2994", "Renatha", "poo.projeto.delivery@gmail.com","Rua dos Tronos, 3");
+					Cliente renatha = Fachada.cadastrarCliente("98821-2994", "Renatha", "poo.projeto.delivery@gmail.com","Rua da Justiça, 12");
 		            System.out.println();
-		            Fachada.cadastrarCliente("98821-2944", "Renatha", "poo.projeto.delivery@gmail.com","Rua dos Tronos, 3");
-		            Fachada.cadastrarCliente("98821-0994", "Renatha", "poo.projeto.delivery@gmail.com","Rua dos Tronos, 3");
-		            Fachada.cadastrarCliente("98821-1994", "Renatha", "poo.projeto.delivery@gmail.com","Rua dos Tronos, 3");
-		            Fachada.cadastrarCliente("98821-3994", "Renatha", "poo.projeto.delivery@gmail.com","Rua dos Tronos, 3");
-		            Fachada.cadastrarCliente("98821-4994", "Renatha", "poo.projeto.delivery@gmail.com","Rua dos Tronos, 3");
-		            Fachada.cadastrarCliente("98821-5994", "Renatha", "poo.projeto.delivery@gmail.com","Rua dos Tronos, 3");
-		            Fachada.cadastrarCliente("98821-6994", "Renatha", "poo.projeto.delivery@gmail.com","Rua dos Tronos, 3");
-		            Fachada.cadastrarCliente("98821-7994", "Renatha", "poo.projeto.delivery@gmail.com","Rua dos Tronos, 3");
 		            
+		            // produtos
 		            Produto pizza = Fachada.cadastrarProduto("Pizza", 30);
 		            System.out.println("cadastrou produto = "+pizza.getDescricao() + " " + pizza.getId());
 		            Produto sushi = Fachada.cadastrarProduto("Sushi", 40);
@@ -96,26 +90,48 @@ public class DeliveryMain {
 		            System.out.println("cadastrou produto = "+cocaCola.getDescricao() + " " + cocaCola.getId());
 		            Produto guarana = Fachada.cadastrarProduto("Guarana", 5);   
 		            System.out.println("cadastrou produto = "+guarana.getDescricao() + " " + guarana.getId());     
+		            Produto pizzaDoce = Fachada.cadastrarProduto("Pizza doce", 35);
+		            System.out.println("cadastrou produto = "+ pizzaDoce.getDescricao() + " " + pizzaDoce.getId());
 		            
+		            // abrir pedidos
 		            System.out.println("\nAbrir pedidos");          
 		            Pedido pedido1 = Fachada.abrirPedido("98745-0643");
-		            System.out.println("abrir pedido = "+pedido1.getId());
-		            Pedido pedido2 = Fachada.abrirPedido("98820-0222");
-		            System.out.println("abrir pedido = "+pedido2.getId());
+		            System.out.println("abrir pedido = " + pedido1.getId());
+		            Pedido pedido2 = Fachada.abrirPedido("98821-2994");
+		            System.out.println("abrir pedido = " + pedido2.getId());
 		            
 		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98745-0643"));
-		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98820-0222"));
-		             
+		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98821-2994"));
+		            
+		            // adicao de produtos
 		            System.out.println("\n adicao dos produtos ao Pedido");         
 		            Fachada.adicionarProdutoPedido("98745-0643", 1);
 		            Fachada.adicionarProdutoPedido("98745-0643", 1);
 		            Fachada.adicionarProdutoPedido("98745-0643", 3);            
-		            Fachada.adicionarProdutoPedido("98820-0222", 2);    
-		            Fachada.adicionarProdutoPedido("98820-0222", 4);    
-		            Fachada.removerProdutoPedido("98820-0222", 4);  
+		            Fachada.adicionarProdutoPedido("98821-2994", 2);    
+		            Fachada.adicionarProdutoPedido("98821-2994", 4);   
+		            
+		            // adicao de combos
+		            List<Integer> listaid = new ArrayList<>();
+					listaid.add(pizza.getId());
+					listaid.add(pizza.getId());
+					listaid.add(cocaCola.getId());
+					Produto combo1 = Fachada.criarCombo("Combo Pizzas", listaid);	
+					System.out.println("criou combo="+combo1);	
+					
+					listaid.clear();
+					listaid.add(sushi.getId());
+					listaid.add(guarana.getId());
+					Produto combo2 = Fachada.criarCombo("Combo Sushi", listaid);	
+					System.out.println("criou combo="+combo2);
+					System.out.println(Fachada.listarProdutos(""));
+		            
+		            
+		            // remocao de produto
+		            Fachada.removerProdutoPedido("98821-2994", 4);  
 					
 		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98745-0643"));
-		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98820-0222"));
+		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98821-2994"));
 		            
 					System.out.println("pre-cadastro concluido");
 
@@ -129,7 +145,7 @@ public class DeliveryMain {
 			}
 		});
 		
-		// configura��es padroes
+		// configuracoes padroes
 		frame.setBounds(500, 200, 850, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -146,7 +162,7 @@ public class DeliveryMain {
 		panelMain = new JPanel();
 		panelMain.setBounds(58, 112, 711, 467);
 		
-		// BOT�O DE VOLTAR A TELA PADR�O
+		// BOTAO DE VOLTAR A TELA PADR�O
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnVoltar.setBounds(10, 11, 91, 28);
@@ -172,10 +188,9 @@ public class DeliveryMain {
 		
 		// MENU DOS PRODUTOS
 		JMenu mnProdutos = new JMenu("Produtos");
-		//mnProdutos.setPreferredSize(new Dimension(150, 22));
 		menuBar.add(mnProdutos);
 		mnProdutos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				
+			// CADASTRAR PRODUTO		
 		JMenuItem mntmCadastrarProd = new JMenuItem("5. Cadastrar");
 		mntmCadastrarProd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -186,17 +201,17 @@ public class DeliveryMain {
 			}
 		});
 		mnProdutos.add(mntmCadastrarProd);
-		
-		JMenuItem mntmListarProd = new JMenuItem("1. Listar");
-		mntmListarProd.addActionListener(new ActionListener() {
+			// LISTAR PRODUTOS
+		JMenuItem mntmListar = new JMenuItem("1. Listar");
+		mntmListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListarProdutos listarProd = new ListarProdutos();
+				ListarProdutos buscarProd = new ListarProdutos();
 				setarPainel();
-				panel.add(listarProd);
-				listarProd.setBounds(65, 100, 700, 500);				
+				panel.add(buscarProd);
+				buscarProd.setBounds(65, 100, 700, 500);	
 			}
 		});
-		mnProdutos.add(mntmListarProd);
+		mnProdutos.add(mntmListar);
 		
 		JSeparator separator = new JSeparator();
 		separator.setMaximumSize(new Dimension(2, 77));
@@ -206,10 +221,9 @@ public class DeliveryMain {
 		
 		// MENU DOS CLIENTES
 		JMenu mnClientes = new JMenu("Clientes");
-		//mnClientes.setPreferredSize(new Dimension(150, 22));
 		menuBar.add(mnClientes);
 		mnClientes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
+			// CADASTRAR CLIENTES
 		JMenuItem mntmCadastrarCli = new JMenuItem("6. Cadastrar");
 		mntmCadastrarCli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -220,8 +234,8 @@ public class DeliveryMain {
 			}
 		});
 		mnClientes.add(mntmCadastrarCli);
-		
-		JMenuItem mntmListarCli = new JMenuItem("2. Listar");
+			// LISTAR CLIENTES
+		JMenuItem mntmListarCli = new JMenuItem("2. Listar todos");
 		mntmListarCli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ListarClientes listaCli = new ListarClientes();
@@ -240,10 +254,9 @@ public class DeliveryMain {
 		
 		// MENU DOS PEDIDOS
 		JMenu mnPedidos = new JMenu("Pedidos");
-		//mnPedidos.setPreferredSize(new Dimension(150, 22));
 		menuBar.add(mnPedidos);
 		mnPedidos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
+			// ABRIR PEDIDOS
 		JMenuItem mntmAbrirPed = new JMenuItem("7. Abrir");
 		mntmAbrirPed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -254,7 +267,7 @@ public class DeliveryMain {
 			}
 		});
 		mnPedidos.add(mntmAbrirPed);
-		
+			// LISTAR TODOS OS PEDIDOS
 		JMenuItem mntmListarPed = new JMenuItem("3. Listar todos");
 		mntmListarPed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -265,19 +278,9 @@ public class DeliveryMain {
 			}
 		});
 		mnPedidos.add(mntmListarPed);
-		
-		JMenuItem mntmConsultarPed = new JMenuItem("4. Consultar Pedido");
-		mntmConsultarPed.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ConsultarPedidoAberto consultaPedido = new ConsultarPedidoAberto();
-				setarPainel();
-				panel.add(consultaPedido);
-				consultaPedido.setBounds(65, 100, 700, 500);
-			}
-		});
-		mnPedidos.add(mntmConsultarPed);
-		
+			// EXCLUIR PEDIDO
 		JMenuItem mntmExcluirPedido = new JMenuItem("16. Excluir Pedido");
+		mnPedidos.add(mntmExcluirPedido);
 		mntmExcluirPedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ExcluirPedido excluirPedido = new ExcluirPedido();
@@ -286,7 +289,6 @@ public class DeliveryMain {
 				excluirPedido.setBounds(65, 100, 700, 500);
 			}
 		});
-		mnPedidos.add(mntmExcluirPedido);
 		
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setOrientation(SwingConstants.VERTICAL);
@@ -299,18 +301,7 @@ public class DeliveryMain {
 		//mnPedidocliente.setPreferredSize(new Dimension(150, 22));
 		menuBar.add(mnPedidocliente);
 		mnPedidocliente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
-		JMenuItem mntmPedidosCli = new JMenuItem("10. Pedido Aberto");
-		mntmPedidosCli.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ConsultarPedidoAberto pedidoAberto = new ConsultarPedidoAberto();
-				setarPainel();
-				panel.add(pedidoAberto);
-				pedidoAberto.setBounds(65, 100, 700, 500);
-			}
-		});
-		mnPedidocliente.add(mntmPedidosCli);
-		
+			// ADICIONAR PRODUTO NO PEDIDO
 		JMenuItem mntmAdcionarProd = new JMenuItem("8. Adcionar Produto");
 		mntmAdcionarProd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -320,8 +311,19 @@ public class DeliveryMain {
 				addProduto.setBounds(65, 100, 700, 500);
 			}
 		});
+			// CONSULTAR PEDIDOS
+		JMenuItem mntmConsultarPed = new JMenuItem("4. Consultar Pedidos");
+		mnPedidocliente.add(mntmConsultarPed);
+		mntmConsultarPed.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ConsultarPedido consultaPedido = new ConsultarPedido();
+				setarPainel();
+				panel.add(consultaPedido);
+				consultaPedido.setBounds(65, 100, 700, 500);
+			}
+		});
 		mnPedidocliente.add(mntmAdcionarProd);
-		
+			// RETIRAR PRODUTO DO PEDIDO
 		JMenuItem mntmRemoverProd = new JMenuItem("9. Retirar Produto");
 		mntmRemoverProd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -332,7 +334,7 @@ public class DeliveryMain {
 			}
 		});
 		mnPedidocliente.add(mntmRemoverProd);
-		
+			// FECHAR PEDIDO
 		JMenuItem mntmFecharPed = new JMenuItem("12. Fechar Pedido");
 		mntmFecharPed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -343,7 +345,7 @@ public class DeliveryMain {
 			}
 		});
 		mnPedidocliente.add(mntmFecharPed);
-		
+			// CANCELAR PEDIDO
 		JMenuItem mntmCancelarPed = new JMenuItem("11. Cancelar Pedido");
 		mntmCancelarPed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -372,8 +374,8 @@ public class DeliveryMain {
 		menuBar.add(separator_3);
 		
 		
-		// MENU DA ARRECADA��O
-		JMenuItem mntmArrecadacao = new JMenuItem("14. Arrecada\u00E7\u00E3o");
+		// MENU DA ARRECADACAO
+		JMenuItem mntmArrecadacao = new JMenuItem("Arrecadacao");
 		mntmArrecadacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Arrecadacao arrecada = new Arrecadacao();
@@ -383,10 +385,19 @@ public class DeliveryMain {
 			}
 		});
 		
+		// MENU COMBO
 		JMenu mnCombo = new JMenu("Combo");
 		menuBar.add(mnCombo);
 		
-		JMenuItem mntmCriarCombo = new JMenuItem("Criar Combo");
+		JMenuItem mntmCriarCombo = new JMenuItem("15. Criar Combo");
+		mntmCriarCombo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CriarCombo criarCombo = new CriarCombo();
+				setarPainel();
+				panel.add(criarCombo);
+				criarCombo.setBounds(65, 100, 700, 500);
+			}
+		});
 		mnCombo.add(mntmCriarCombo);
 		
 		JSeparator separator_5 = new JSeparator();
@@ -404,7 +415,6 @@ public class DeliveryMain {
 		separator_4.setMaximumSize(new Dimension(2, 77));
 		menuBar.add(separator_4);
 			
-		
 	}
 	
 	// METODO PARA ARRUMAR O PAINEL PARA RECEBER OS JPANELS

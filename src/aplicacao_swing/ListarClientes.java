@@ -41,7 +41,7 @@ public class ListarClientes extends JPanel {
 			Collection<Cliente> lista = Fachada.listarClientes();
 			texto = "\n";
 			if (lista.isEmpty())
-				texto += "Não tem produto cadastrado\n";
+				texto += "Nao tem produto cadastrado\n";
 			else 	
 				for(Cliente c: lista) 
 					texto +=  c + " \n";
