@@ -1,6 +1,7 @@
 package aplicacao_swing;
 
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -19,8 +20,9 @@ public class EnviarPedido extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField textFieldTel;
-	private JTextField textFieldEmail;
+	private JTextField textFieldSenha;
 	private JLabel labelConfirma;
+	private JTextField textFieldEmail;
 
 	/**
 	 * Create the panel.
@@ -39,7 +41,7 @@ public class EnviarPedido extends JPanel {
 		add(lblNome);
 		
 		JLabel lblPreo = new JLabel("Senha do email:");
-		lblPreo.setBounds(80, 199, 122, 14);
+		lblPreo.setBounds(80, 226, 122, 14);
 		add(lblPreo);
 		
 		textFieldTel = new JTextField();
@@ -47,10 +49,10 @@ public class EnviarPedido extends JPanel {
 		add(textFieldTel);
 		textFieldTel.setColumns(10);
 		
-		textFieldEmail = new JTextField();
-		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(296, 192, 228, 30);
-		add(textFieldEmail);
+		textFieldSenha = new JPasswordField();
+		textFieldSenha.setColumns(10);
+		textFieldSenha.setBounds(296, 218, 228, 30);
+		add(textFieldSenha);
 		
 		JButton btnCadastrar = new JButton("Enviar");
 		
@@ -62,11 +64,21 @@ public class EnviarPedido extends JPanel {
 		labelConfirma.setBounds(24, 418, 589, 21);
 		add(labelConfirma);
 		
+		JLabel lblEmail = new JLabel("Email Loja:");
+		lblEmail.setBounds(82, 185, 108, 14);
+		add(lblEmail);
+		
+		textFieldEmail = new JTextField();
+		textFieldEmail.setBounds(296, 177, 228, 30);
+		add(textFieldEmail);
+		textFieldEmail.setColumns(10);
+		
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Fachada.enviarPedido(textFieldTel.getText(), textFieldEmail.getText());
+					Fachada.enviarPedido(textFieldTel.getText(), textFieldEmail.getText(), textFieldSenha.getText());
 					textFieldTel.setText("");
+					textFieldSenha.setText("");
 					textFieldEmail.setText("");
 					labelConfirma.setText("Email enviado com sucesso!");
 				} catch (Exception e) {
@@ -79,5 +91,4 @@ public class EnviarPedido extends JPanel {
 		});
 
 	}
-
 }

@@ -39,7 +39,7 @@ public class ListarPedidos extends JPanel {
 			ArrayList<Pedido> lista = Fachada.listarPedidos();
 			texto = "\n";
 			if (lista.isEmpty())
-				texto += "Nao tem produto cadastrado\n";
+				texto += "Nao tem pedido cadastrado\n";
 			else 	
 				for(Pedido p: lista) 
 					texto +=  p +" -- Pedido fechado? " + p.isFechado() + " \n\n"; 

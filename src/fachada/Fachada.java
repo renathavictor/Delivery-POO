@@ -147,17 +147,17 @@ public class Fachada {
 	public static void cancelarPedido(String telCli) throws Exception {
 		Pedido p = restaurante.localizarPedido(telCli);
 		if (p == null)
-			throw new Exception("Não é possivel cancelar o pedido, pedido inexistente!");
+			throw new Exception("Na eh possivel cancelar o pedido, pedido inexistente!");
 		restaurante.removerPedido(p, telCli);
 	}
 	
 	public static void excluirPedido(int IdPedido) throws Exception {
 		Pedido p = restaurante.localizarPedido(IdPedido);
 		if (p == null)
-			throw new Exception("Não é possivel excluir o pedido, pedido inexistente!");
+			throw new Exception("Nao eh possivel excluir o pedido, pedido inexistente!");
 		Boolean fechado = p.isFechado();
 		if (fechado == false)
-			throw new Exception("O pedido ainda está aberto, tente cancelar");
+			throw new Exception("O pedido ainda esta aberto, tente cancelar");
 		restaurante.removerPedido(p, p.verClientePedido().getTelefone());
 		
 	}
@@ -178,20 +178,20 @@ public class Fachada {
 		restaurante.localizarCliente(telCli).obterPedidoAberto().setFechado(true);  
 	}
 	
-	public static void enviarPedido(String telCli, String senha) throws Exception {
+	public static void enviarPedido(String telCli, String email, String senha) throws Exception {
 		Cliente c = restaurante.localizarCliente(telCli);
 		if(c == null) 
 			throw new Exception("envio de pedido - cliente nao cadastrado: " + telCli);
 		Pedido p = c.localizarPedidoUltimo(telCli);
 		if (p == null) {
-			throw new Exception("Nao é possivel enviar nota, pedido inexistente!");	
+			throw new Exception("Nao e possivel enviar nota, pedido inexistente!");	
 		}
 		if (p.isFechado() == true) {
 			restaurante.criarPdf(p);
-			restaurante.enviarEmail(c.getEmail(), senha);			
+			restaurante.enviarEmail(c.getEmail(), email, senha);			
 		}
 		else
-			throw new Exception("Cliente não possui pedido fechado");
+			throw new Exception("Cliente nao possui pedido fechado");
 	}
 	
 	public static double calcularArrecadacao(int dia) {

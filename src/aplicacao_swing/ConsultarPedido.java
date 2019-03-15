@@ -55,7 +55,7 @@ public class ConsultarPedido extends JPanel {
 		add(btnConsultar);
 		
 		labelConfirma = new JLabel("");
-		labelConfirma.setBounds(24, 418, 589, 21);
+		labelConfirma.setBounds(24, 451, 589, 21);
 		add(labelConfirma);
 		
 		textArea = new JTextArea();

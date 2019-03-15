@@ -203,9 +203,10 @@ public class Restaurante {
 		}
 	}
 	
-	public void enviarEmail(String e, String s) {
+	public void enviarEmail(String emailCli, String emailLoja, String s) {
 		
-		final String email = e;
+		final String email = emailLoja;
+		final String emailCliente = emailCli;
 		final String senha = s;
 
 		//Setting up configurations for the email connection to the Google SMTP server using TLS
@@ -226,8 +227,8 @@ public class Restaurante {
 		try {
 			MimeMessage msg = new MimeMessage(session);
 
-			Address from = new InternetAddress("poo.projeto.delivery@gmail.com");
-			Address to = new InternetAddress(email);
+			Address from = new InternetAddress(email);
+			Address to = new InternetAddress(emailCliente);
 
 			//configurando o remetente e o destinatario
 			msg.setFrom(from);

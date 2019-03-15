@@ -76,9 +76,9 @@ public class DeliveryMain {
 					//  pre-cadastro
 					
 					// clientes
-					Cliente joao = Fachada.cadastrarCliente("98745-0643", "joao", "poo.projeto.delivery@gmail.com","Rua dos Tronos, 3");
+					Cliente joao = Fachada.cadastrarCliente("98000-0000", "joao", "joao@gmail.com","Rua dos Tronos, 3");
 		            System.out.println("cadastrou cliente = "+joao.getNome());
-					Cliente renatha = Fachada.cadastrarCliente("98821-2994", "Renatha", "poo.projeto.delivery@gmail.com","Rua da Justiça, 12");
+					Cliente renatha = Fachada.cadastrarCliente("981111-0000", "Renatha", "poo.projeto.delivery@gmail.com","Rua da Justica, 12");
 		            System.out.println();
 		            
 		            // produtos
@@ -95,19 +95,19 @@ public class DeliveryMain {
 		            
 		            // abrir pedidos
 		            System.out.println("\nAbrir pedidos");          
-		            Pedido pedido1 = Fachada.abrirPedido("98745-0643");
+		            Pedido pedido1 = Fachada.abrirPedido("98000-0000");
 		            System.out.println("abrir pedido = " + pedido1.getId());
 		            Pedido pedido2 = Fachada.abrirPedido("98821-2994");
 		            System.out.println("abrir pedido = " + pedido2.getId());
 		            
-		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98745-0643"));
+		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98000-0000"));
 		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98821-2994"));
 		            
 		            // adicao de produtos
 		            System.out.println("\n adicao dos produtos ao Pedido");         
-		            Fachada.adicionarProdutoPedido("98745-0643", 1);
-		            Fachada.adicionarProdutoPedido("98745-0643", 1);
-		            Fachada.adicionarProdutoPedido("98745-0643", 3);            
+		            Fachada.adicionarProdutoPedido("98000-0000", 1);
+		            Fachada.adicionarProdutoPedido("98000-0000", 1);
+		            Fachada.adicionarProdutoPedido("98000-0000", 3);            
 		            Fachada.adicionarProdutoPedido("98821-2994", 2);    
 		            Fachada.adicionarProdutoPedido("98821-2994", 4);   
 		            
@@ -130,7 +130,7 @@ public class DeliveryMain {
 		            // remocao de produto
 		            Fachada.removerProdutoPedido("98821-2994", 4);  
 					
-		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98745-0643"));
+		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98000-0000"));
 		            System.out.println("\nconsultar pedido = "+ Fachada.consultarPedido("98821-2994"));
 		            
 					System.out.println("pre-cadastro concluido");
@@ -141,7 +141,7 @@ public class DeliveryMain {
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
-				JOptionPane.showMessageDialog(null, "Sistema encerrado, até breve!");
+				JOptionPane.showMessageDialog(null, "Sistema encerrado, ate breve!");
 			}
 		});
 		
@@ -162,7 +162,7 @@ public class DeliveryMain {
 		panelMain = new JPanel();
 		panelMain.setBounds(58, 112, 711, 467);
 		
-		// BOTAO DE VOLTAR A TELA PADR�O
+		// BOTAO DE VOLTAR A TELA PADRAO
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnVoltar.setBounds(10, 11, 91, 28);
