@@ -35,3 +35,4 @@ de 10%.
 #
 
 **Classes do Modelo de Negócio:**
+![modelo-negocio](https://github.com/renathavictor/Projeto-POO/blob/master/modelo-negocio.PNG)
